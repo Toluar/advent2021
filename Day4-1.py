@@ -15,7 +15,7 @@ Grille = [[0] * TailleGrille for i in range(TailleGrille)]  #Grille de base
 IndLigne = 0 #Va contenir l indice de la ligne que l on va ajouter
 
 
-filin = open("Input.4","r")
+filin = open("Input.4.1","r")
 for i,ligneG in enumerate(filin):
     if len(ligneG) > 1:
         #C est une ligne qui doit etre ajouter a la grille
@@ -34,23 +34,23 @@ filin.close
 Liste_Grille[Nb_Grilles]=Grille
 Nb_Grilles +=1
 
-print(f"Nbr de Grilles : {Nb_Grilles}")
-print(Liste_Grille)
-
-
 def Number_in_grille(Grille,Nbr):
-    print(f"Taille de la grille : {TailleGrille} ")
     for x in range(0,int(TailleGrille)):
-        print(f"{x} => {TailleGrille}")
         for y in range(0,TailleGrille):
             if Grille[x][y] == Nbr:
                 Grille[x][y] = "X"
-                return True
-    return False
-
-def Bingo_in_Grille(Grille):
-    #On parcours les lignes.
-    #Puis les colonnes
+                i = 0
+                crX = True
+                crY = True
+                while i < TailleGrille :
+                    if (Grille[i][y] != "X"):
+                        crX = False
+                    if (Grille[x][i] != "X"):
+                        crY = False
+                    i += 1
+                if ((crX == True) or (crY == True)):
+                    return True
+                    
     return False
 
 BINGO = False
@@ -58,8 +58,21 @@ for t in range(len(tirage)):
     for i in range(Nb_Grilles):
         if Number_in_grille(Liste_Grille[i],int(tirage[t])):
             BINGO = True
+            ind = i
+            NbT = int(tirage[t])
+            break
+    if BINGO == True:
+        break
+        
+Somme = 0
+for x in range(0,TailleGrille):
+    for y in range(0,TailleGrille):
+        if Liste_Grille[ind][x][y] != "X":
+            Somme = Somme + Liste_Grille[ind][x][y]
 
-    
+Resultat = Somme * NbT
+print(f"Resultat : {Somme} * {NbT} : {Resultat} ")
+
 # Connaitre le type d une variable : print(type(tirages))
 
 
